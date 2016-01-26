@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "facultyData <- read.csv(\"C:/Users/Frankie/Desktop/FacultyData.txt\", header=FALSE, fill=TRUE, na.string=\"NA\");\n\nfacultyData$V3 <- as.numeric(as.character(facultyData$V3));\n\nsummary(facultyData$V3);\n\nmeanFaculty <- mean(facultyData$V3,na.rm=TRUE);\n\nmeanFacultyAge <- 2016 - meanFaculty + 22;\n\nmeanFacultyAge;\n\nyoungestFacultyAge <- 2016 - max(facultyData$V3, na.rm=TRUE) + 22;\n\noldestFacultyAge <- 2016 - min(facultyData$V3, na.rm=TRUE) + 22;\n\nyoungestFacultyAge;\n\noldestFacultyAge;\n",
+    "created" : 1453495351376.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1249555418",
+    "id" : "5309F9DC",
+    "lastKnownWriteTime" : 1453662450,
+    "last_content_update" : 1453662450806,
+    "path" : "C:/Users/Frankie/Desktop/williamsfacultyage/R/Rcode1.R",
+    "project_path" : "R/Rcode1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
