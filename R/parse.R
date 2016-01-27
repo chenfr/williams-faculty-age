@@ -1,6 +1,6 @@
 #' This file contains the functions which parse the data for this package.
 
-
+load("data/facultyData.rda")
 #' "facultyData", stored in /data, is the dataframe which lists the names of and date at which
 #'  each Williams faculty member obtained their B.A.
 #'
