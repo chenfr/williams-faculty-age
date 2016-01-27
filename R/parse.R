@@ -1,16 +1,16 @@
 #' This file contains the functions which parse the data for this package.
 
-facultyData <- data(facultyData)
+data(facultyData)
 #' "facultyData", stored in /data, is the dataframe which lists the names of and date at which
 #'  each Williams faculty member obtained their B.A.
 #'
 #' #' HOW-TO-OBTAIN-DATA:
-#' facultyData <- read.csv("C:/Users/Frankie/Desktop/FacultyData.txt", header=FALSE, fill=TRUE, na.string="NA");  
+#' facultyData <- read.csv("C:/Users/Frankie/Desktop/FacultyData.txt", header=FALSE, fill=TRUE, na.string="NA");
 #' Notice fill=TRUE is set, because not all professors obtained the same number of degrees (MA, PHD, BA, ect)
 #' This inequality of columns causes issues in the dataframe, which fill=TRUE solves.
-#' "FacultyData.txt" is a local text file obtained by copy and pasting the pdf of 
+#' "FacultyData.txt" is a local text file obtained by copy and pasting the pdf of
 #' http://web.williams.edu/admin/registrar/catalog/bulletin2013_14.pdf
-#' 
+#'
 
 yearBA <- as.numeric(as.character(facultyData$V3));
 
@@ -24,15 +24,15 @@ yearBA <- as.numeric(as.character(facultyData$V3));
 meanyearBA <- mean(yearBA,na.rm=TRUE);
 
 #' We calculate the average year at which Williams Faculty obtain their BA's to help with the next function
-#' 
+#'
 
 meanFacultyAge <- 2016 - meanyearBA + 22;
 
 #' Assuming that most people obtain their BA at 22, we subtract the average year at which
 #' Williams Faculty obtain their BA from the current year (2016) and add 22 in order to obtain the average
 #' age of Williams Faculty.
-#' 
-#' 
+#'
+#'
 
 youngestFacultyAge <- 2016 - max(yearBA, na.rm=TRUE) + 22;
 
