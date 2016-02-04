@@ -1,8 +1,8 @@
 {
-    "path" : "C:/Users/Frankie/Desktop/williamsfacultyage",
+    "path" : "C:/Users/Frankie/Desktop/williamsfacultyage/data",
     "sortOrder" : [
         {
-            "ascending" : true,
+            "ascending" : false,
             "columnIndex" : 1
         },
         {

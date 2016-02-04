@@ -1,8 +1,11 @@
 Package: williamsfacultyage
 Type: Package
-Title: williamsfacultyage caclulates the average age of Williams Faculty and provides other useful statistics on the demographic.
+Title: An Estimation of the Agerage Age of Williams College Faculty
 Version: 0.1.0
 Authors@R: person("Frankie", "Chen", email = "fc2@williams.edu", role = c("aut", "cre"))
-Description: More about what it does (maybe more than one line)
+Description: This package estimates the averge age of Williams Faculty
+    using data from the Williams course catalog available publicly online.
+    Additionally, this package allows users to calculate the youngest,
+    oldest, and other statistics using the same data.
 License: What license is it under?
 LazyData: TRUE
