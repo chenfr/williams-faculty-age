@@ -13,7 +13,7 @@
 #  "FacultyData.txt" is a local text file obtained by copy and pasting the
 #  pdf of http://web.williams.edu/admin/registrar/catalog/bulletin2013_14.pdf
 
-#data(df)
+data(df)
 
 #clean_df
 
