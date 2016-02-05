@@ -4,14 +4,11 @@
 #  the histogram as an abline
 #  Requires the dplyr package to use filter(), group_by(), and summarise()
 
+
 hist_department <- function(x,y){
 
   #  For this function, x will be set as the department parameter and y
   #  as the parameter for the number of breaks in the histogram
-
-  data(df)
-
-  #  First I load the df************ load this in Vignette
 
   if(missing(y)){
    y <- 15
