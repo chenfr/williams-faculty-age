@@ -4,11 +4,15 @@
 
 mean_faculty <- function(){
 
-  yearBA <- as.numeric(as.character(facultyData$V3))
+  data(df)
+
+  #  Loads the pre-cleaned data set, df
+
+  avg_yearBA <- mean(df$year,na.rm=TRUE)
 
   #  Vector of the years at which faculty obtained their BA's
 
-  2038 - mean(yearBA,na.rm=TRUE)
+  2038 - mean(avg_yearBA,na.rm=TRUE)
 
   #  2038 = 2016 + 22. We add the current year, 2016, plus the assumed age at
   #  which a BA's is obtained, 22.

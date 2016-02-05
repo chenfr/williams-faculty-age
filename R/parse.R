@@ -21,30 +21,22 @@ data(df)
 #  name, department, and yearBA (year at which bachelor's was obtained)
 #  We will used df as the primary dataframe for this package.
 
-yearBA <- as.numeric(as.character(facultyData$V3));
 
-#  V3 is column of the years in which the Williams faculty obtained his BA.
-#  "as.numeric(as.character(facultyData$V3))" obtains only the numeric values
-#  in column V3. There are some non-numeric values caused by the unequal string
-#  lengths of each row. Otherwise, this would cause issue with the "mean" function.
-#  Feel free to use "summary(yearBA)" to see some quick statistics of the age of
-#  Williams faculty.
-
-meanyearBA <- mean(yearBA,na.rm=TRUE);
+avg_yearBA <- mean(clean_df$year,na.rm=TRUE)
 
 #  We calculate the average year at which Williams Faculty obtain their BA's to
 #  help with the next function.
 
-meanFacultyAge <- 2016 - meanyearBA + 22;
+mean_faculty <- 2016 - meanyearBA + 22
 
 #  Assuming that most people obtain their BA at 22, we subtract the average year
 #  at which Williams Faculty obtain their BA from the current year (2016) and add
 #  22 in order to obtain the average age of Williams Faculty.
 
-youngestFacultyAge <- 2016 - max(yearBA, na.rm=TRUE) + 22;
+youngest_faculty <- 2016 - max(yearBA, na.rm=TRUE) + 22
 
 #  A quick estimate of the youngest Williams faculty using similar logic.
 
-oldestFacultyAge <- 2016 - min(yearBA, na.rm=TRUE) + 22
+oldest_FacultyAge <- 2016 - min(yearBA, na.rm=TRUE) + 22
 
 #  A quick estimate of the oldest Williams faculty using similar logic.
