@@ -1,6 +1,7 @@
 #  This function produces a histogram of the ages of the desired department
 #  User can play with the number of breaks in the histogram to get a better
-#  visualization of the histogram.
+#  visualization of the histogram. Additionally, the mean is implemented on
+#  the histogram as an abline
 #  Requires the dplyr package to use filter(), group_by(), and summarise()
 
 hist_department <- function(x,y){

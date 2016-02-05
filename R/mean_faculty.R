@@ -8,15 +8,13 @@ mean_faculty <- function(){
 
   #  Vector of the years at which faculty obtained their BA's
 
-  2038
+  2038 - mean(yearBA,na.rm=TRUE)
 
   #  2038 = 2016 + 22. We add the current year, 2016, plus the assumed age at
   #  which a BA's is obtained, 22.
-
-  - mean(yearBA,na.rm=TRUE)
-
-  #  Takes the mean of the years in which faculty obtained their BA's
-  #  and then subtracts the result from 2038 to obtain an estimate of the avg age
+  #  The mean function takes the mean of the years at which faculty obtained
+  #  their BA's and then subtracts the result from 2038 to obtain an estimate
+  #  of the avg age
 
 
 }
