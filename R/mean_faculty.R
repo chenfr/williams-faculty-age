@@ -4,11 +4,11 @@
 
 mean_faculty <- function(){
 
-  data(df)
+  clean_df
 
-  #  Loads the pre-cleaned data set, df
+  #  Loads the pre-cleaned data set, clean_df
 
-  avg_yearBA <- mean(df$year,na.rm=TRUE)
+  avg_yearBA <- mean(clean_df$year,na.rm=TRUE)
 
   #  Vector of the years at which faculty obtained their BA's
 

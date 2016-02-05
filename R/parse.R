@@ -15,6 +15,8 @@ data(facultyData)
 
 data(df)
 
+clean_df
+
 #  "df", stored in /data, is the cleaned up version of facultyData. df is a
 #  dataframe of facultyData with V2, the departments column, significantly
 #  cleaned up. Furthermore, all other variables are cut, leaving only 3 variables:
