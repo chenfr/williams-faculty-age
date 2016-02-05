@@ -3,15 +3,11 @@
 
 mean_department <- function(x){
 
-  data(df)
-
-  #  First I load the df************ load this in Vignette
-
   deparse(substitute(x))
 
   #  Allows the function to take strings as arguments
 
-  var <- filter(df, department == x)
+  var <- filter(clean_df, department == x)
 
   #  Filters df by department (x) and puts all faculty in the particular
   #  department in the dataframe var

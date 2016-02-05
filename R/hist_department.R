@@ -21,7 +21,7 @@ hist_department <- function(x,y){
 
   #  Allows the function to take strings as arguments for x
 
-  var <- filter(df, department == x)
+  var <- filter(clean_df, department == x)
 
   #  Filters df by department (x) and puts all faculty in the particular
   #  department in the dataframe var
