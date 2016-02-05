@@ -1,6 +1,7 @@
 #  This file contains the functions which parse the data for this package
 
 data(facultyData)
+
 #  "facultyData", stored in /data, is the dataframe which lists the names of
 #  and date at which each Williams faculty member obtained their B.A.
 #
@@ -11,6 +12,14 @@ data(facultyData)
 #  the dataframe, which fill=TRUE solves.
 #  "FacultyData.txt" is a local text file obtained by copy and pasting the
 #  pdf of http://web.williams.edu/admin/registrar/catalog/bulletin2013_14.pdf
+
+data(df)
+
+#  "df", stored in /data, is the cleaned up version of facultyData. df is a
+#  dataframe of facultyData with V2, the departments column, significantly
+#  cleaned up. Furthermore, all other variables are cut, leaving only 3 variables:
+#  name, department, and yearBA (year at which bachelor's was obtained)
+#  We will used df as the primary dataframe for this package.
 
 yearBA <- as.numeric(as.character(facultyData$V3));
 
