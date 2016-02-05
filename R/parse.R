@@ -1,6 +1,6 @@
 #  This file contains the functions which parse the data for this package
 
-data(facultyData)
+#data(facultyData)
 
 #  "facultyData", stored in /data, is the dataframe which lists the names of
 #  and date at which each Williams faculty member obtained their B.A.
@@ -13,9 +13,9 @@ data(facultyData)
 #  "FacultyData.txt" is a local text file obtained by copy and pasting the
 #  pdf of http://web.williams.edu/admin/registrar/catalog/bulletin2013_14.pdf
 
-data(df)
+#data(df)
 
-clean_df
+#clean_df
 
 #  "df", stored in /data, is the cleaned up version of facultyData. df is a
 #  dataframe of facultyData with V2, the departments column, significantly
@@ -36,10 +36,10 @@ average_faculty <- 2016 - avg_yearBA + 22
 #  22 in order to obtain the average age of Williams Faculty.
 #  Note that the function mean_faculty() accomplishes the same thing
 
-youngest_faculty <- 2016 - max(avg_yearBA, na.rm=TRUE) + 22
+youngest_faculty <- 2016 - max(clean_df$year, na.rm=TRUE) + 22
 
 #  A quick estimate of the youngest Williams faculty using similar logic.
 
-oldest_faculty <- 2016 - min(avg_yearBA, na.rm=TRUE) + 22
+oldest_faculty <- 2016 - min(clean_df$year, na.rm=TRUE) + 22
 
 #  A quick estimate of the oldest Williams faculty using similar logic.
