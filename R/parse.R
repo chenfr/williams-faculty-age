@@ -27,16 +27,17 @@ avg_yearBA <- mean(clean_df$year,na.rm=TRUE)
 #  We calculate the average year at which Williams Faculty obtain their BA's to
 #  help with the next function.
 
-mean_faculty <- 2016 - avg_yearBA + 22
+average_faculty <- 2016 - avg_yearBA + 22
 
 #  Assuming that most people obtain their BA at 22, we subtract the average year
 #  at which Williams Faculty obtain their BA from the current year (2016) and add
 #  22 in order to obtain the average age of Williams Faculty.
+#  Note that the function mean_faculty() accomplishes the same thing
 
 youngest_faculty <- 2016 - max(avg_yearBA, na.rm=TRUE) + 22
 
 #  A quick estimate of the youngest Williams faculty using similar logic.
 
-oldest_FacultyAge <- 2016 - min(avg_yearBA, na.rm=TRUE) + 22
+oldest_faculty <- 2016 - min(avg_yearBA, na.rm=TRUE) + 22
 
 #  A quick estimate of the oldest Williams faculty using similar logic.
