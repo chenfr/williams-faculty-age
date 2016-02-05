@@ -18,14 +18,11 @@ mean_department <- function(x){
 
   var %>% group_by(department) %>%
 
-  #  Groups the department column of var
+    #  Groups the department column of var
 
-  summarise(avg_age = 2038- mean(year, na.rm=TRUE))
+    summarise(avg_age = 2038- mean(year, na.rm=TRUE))
 
   #  Estimates the average age of Chemistry faculty in the same way mean_faculty
   #  calculates the age
 
 }
-
-
-#Calculates the ages of Williams Faculty by department
