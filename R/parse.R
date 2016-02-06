@@ -1,4 +1,6 @@
-#  This file contains the functions which parse the data for this package
+#  This file loads the primary dataframe, "df" (clean_df) for this package
+#  This file also contains quick values of Williams faculty, such as the oldest,
+#  youngest, and average age of Williams faculty
 
 #data(facultyData)
 
@@ -17,8 +19,9 @@ data(df)
 
 #clean_df
 
-#  "df", stored in /data, is the cleaned up version of facultyData. df is a
-#  dataframe of facultyData with V2, the departments column, significantly
+#  "df", stored in /data, is the cleaned up version of facultyData. clean_df is the actual
+#  name of the file in the package environment.
+#  It is a dataframe of facultyData with V2, the departments column, significantly
 #  cleaned up. Furthermore, all other variables are cut, leaving only 3 variables:
 #  name, department, and yearBA (year at which bachelor's was obtained)
 #  We will used df as the primary dataframe for this package.
