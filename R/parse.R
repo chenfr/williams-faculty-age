@@ -2,8 +2,6 @@
 #  This file also contains quick values of Williams faculty, such as the oldest,
 #  youngest, and average age of Williams faculty
 
-#data(facultyData)
-
 #  "facultyData", stored in /data, is the dataframe which lists the names of
 #  and date at which each Williams faculty member obtained their B.A.
 #

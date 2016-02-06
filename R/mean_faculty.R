@@ -1,6 +1,10 @@
-#  This file contains the mean function that calculates the average age of
-#  all current Williams Faculty.
-
+#' Estimate average age of Williams Faculty
+#'
+#' The mean_faculty function estimates the average age of Williams faculty by
+#' year. Available years are 2011-2014.
+#' @param x The desired year of Williams Faculty, (2011, 2012, 2013, or 2014)
+#' @return The average age of Williams faculty. Default is 2014.
+#' @export
 
 mean_faculty <- function(){
 

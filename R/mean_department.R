@@ -1,3 +1,12 @@
+#' Estimate average age by department
+#'
+#' The "mean_department" function estimates the average age of Williams faculty sorted
+#' by department.
+#' @param x Character string of desired department. See "for_department" for a complete
+#' list of departments to use as parameters.
+#' @return The average age of Williams faculty for the specified department.
+#' @export
+
 #  This function estimates the average age of Williams Faculty by department
 #  Requires the dplyr package to use filter(), group_by(), and summarise()
 

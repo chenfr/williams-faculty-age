@@ -1,45 +1,54 @@
-#  This function is used to clean the Williams faculty data set for any year.
-#  In particular, this function cleans the Department column of
-#  the dataframe and compiles everything in a new dataframe called "mega_clean_df"
-#
-#  Note that the data set must have the title of the professor or degree earned
-#  in the second column of the dataframe.
-#  The reason why we clean this is that the second column shows the title
-#  of the professor (e.g. Professor of Philosophy), which is unnecessary
-#  information that will confuse filter() and group_by() functions in dplyr.
-#  Our goal with this function is clean this column so that only the department
-#  name (e.g. Philosophy) remains.
-#
-#  I recommend using read.csv("C:/Users/Frankie/Desktop/facultyData2013.txt", header=FALSE, fill=TRUE, na.string="NA")
-#  as the code to read in the raw data
-
-for_departments <- c("Africana Studies", "American Studies", "Anthropology",
-                     "Arabic", "Art History", "Art Studio", "Asian American Studies",
-                     "Asian Studies", "Astronomy", "Astrophysics", "Biochemistry", "Biology",
-                     "Chemistry", "Chinese", "Classics", "Cognitive Science",
-                     "Comparative Literature", "Computer Science", "Dance", "Economics", "English",
-                     "Enironmental Policy", "Environmental Science", "Environmental Studies",
-                     "French", "Geosciences", "German", "Global Studies", "History of Science",
-                     "Italian", "Japanese", "Latina/o Studies", "Maritime Studies",
-                     "Mathematics", "Music", "Neuroscience", "Performance Studies",
-                     "Philosophy", "Physical Education", "Physics", "Political Economy",
-                     "Political Science", "Psychology", "Public Health", "Religion",
-                     "Romance Languages", "Russian", "Sociology", "Spanish", "Statistics",
-                     "Theatre", "Women's, Gender, & Sexuality Studies", "History", "Art")
-
-#  First Assigns the department names to clean in the dataframe
-#  I manually entered these in, but this is still significantly faster
-#  than cleaning the data by hand.
-#  A potential problem is with 'Art', 'Art History', and 'History'--- with
-#  my code, we homogenize the Art Faculty with the Art History and History
-#  departments.
-#  This is customizable for the user, as long as he adjusts this list.
-
+#' Clean Williams Faculty Data Sets
+#'
+#' The "mega_clean" function cleans the Williams faculty data set for any year.
+#' In particular, the function cleans the "department" column of the data frame
+#' and compiles everything in a new dataframe called "mega_clean_df".
+#' Note that the data set must have the title of the professor or degree earned in the second
+#' column of the dataframe.
+#' ** The reason why we clean this is that the second column shows the title
+#'  of the professor (e.g. Professor of Philosophy), which is unnecessary
+#' information that will confuse filter() and group_by() functions in dplyr.
+#' Our goal with this function is clean this column so that only the department
+#' name (e.g. Philosophy) remains.
+#' I recommend using read.csv("C:/Users/Frankie/Desktop/facultyData2013.txt", header=FALSE, fill=TRUE, na.string="NA")
+#' as the code to read in the raw data
+#'
+#' @param y The dataset of Williams faculty to be cleaned by the function. Note
+#' that the dataset must have the department's name/ professor title in the second
+#' column. For an example, see "facultyData" for a model of the type of parameter
+#' mega_clean() expects. Examples include facultyData, facultyData2013, ect.
+#' facultyData2011-2014 have been preloaded for the user.
+#' @return "mega_clean_df", the cleaned version of the parameter (the original
+#' dataframe)
+#' @export
 
 
 mega_clean <- function(y){
 
   #  Define mega_clean() to clean the data set y.
+
+  for_departments <- c("Africana Studies", "American Studies", "Anthropology",
+                       "Arabic", "Art History", "Art Studio", "Asian American Studies",
+                       "Asian Studies", "Astronomy", "Astrophysics", "Biochemistry", "Biology",
+                       "Chemistry", "Chinese", "Classics", "Cognitive Science",
+                       "Comparative Literature", "Computer Science", "Dance", "Economics", "English",
+                       "Enironmental Policy", "Environmental Science", "Environmental Studies",
+                       "French", "Geosciences", "German", "Global Studies", "History of Science",
+                       "Italian", "Japanese", "Latina/o Studies", "Maritime Studies",
+                       "Mathematics", "Music", "Neuroscience", "Performance Studies",
+                       "Philosophy", "Physical Education", "Physics", "Political Economy",
+                       "Political Science", "Psychology", "Public Health", "Religion",
+                       "Romance Languages", "Russian", "Sociology", "Spanish", "Statistics",
+                       "Theatre", "Women's, Gender, & Sexuality Studies", "History", "Art")
+
+  #  First Assigns the department names to clean in the dataframe
+  #  I manually entered these in, but this is still significantly faster
+  #  than cleaning the data by hand.
+  #  A potential problem is with 'Art', 'Art History', and 'History'--- with
+  #  my code, we homogenize the Art Faculty with the Art History and History
+  #  departments.
+  #  This is customizable for the user, as long as he adjusts this list.
+
 
   y[,3] <- as.numeric(as.character(y[,3]))
 

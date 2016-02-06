@@ -1,8 +1,15 @@
-#  This function produces a histogram of the ages of the desired department
-#  User can play with the number of breaks in the histogram to get a better
-#  visualization of the histogram. Additionally, the mean is implemented on
-#  the histogram as an abline
-#  Requires the dplyr package to use filter(), group_by(), and summarise()
+#' Display Histogram of the Ages of Desired Department
+#'
+#' The "hist_department" function produces a histogram of the ages of all Williams
+#' faculty in a particular department and includes an abline of the average age of all
+#' the Williams faculty in the department. Requires the dplyr package for use.
+#' @param x A character string of desired department. See for_department for a complete
+#' list of departments to use as parameters.
+#' @param y A numerical value of the number of breaks desired in the histogram. Recommended
+#' amount of breaks: 5-20. Default is 15.
+#' @return The average age of Williams faculty for the specified department.
+#' @export
+
 
 
 hist_department <- function(x,y){
