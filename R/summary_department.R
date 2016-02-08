@@ -45,23 +45,25 @@ summary_department <- function(x,y){
 
   summary <- summary(2038- var[,3])
 
+  return(summary)
+
   #  Summarizes the ages of the faculty in the specified year and department
   #  Note that this does NOT give the standard deviation
 
-  sd <- sd(var[,3])
+  #sd <- sd(var[,3])
 
   #  Takes standard deviation of the ages of faculty in specified year and department
 
-  setClass("Summary", representation(Spread = "table", Sd = "numeric"))
+  ##setClass("Summary", representation(Spread = "table", Sd = "numeric"))
 
   #  Sets a S4 class "Summary" so we can return both summary and sd. This is necessary
   #  because R will only return one value (either sd() of ages or summary() of ages)
 
-  summary_var <- new("Summary", Spread= summary, Sd = sd)
+  ##summary_var <- new("Summary", Spread= summary, Sd = sd)
 
   #  Adds a new object in S4 class "Summary" with the summary and sd attributes
 
-  summary_var
+  #summary_var
 
   #  Returns both summary and sd
 
