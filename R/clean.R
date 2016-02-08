@@ -41,14 +41,13 @@ mega_clean <- function(y){
                        "Romance Languages", "Russian", "Sociology", "Spanish", "Statistics",
                        "Theatre", "Women's, Gender, & Sexuality Studies", "History", "Art")
 
-  #  First Assigns the department names to clean in the dataframe
+  #  Assigns the department names to clean in the dataframe
   #  I manually entered these in, but this is still significantly faster
   #  than cleaning the data by hand.
   #  A potential problem is with 'Art', 'Art History', and 'History'--- with
   #  my code, we homogenize the Art Faculty with the Art History and History
   #  departments.
   #  This is customizable for the user, as long as he adjusts this list.
-
 
   y[,3] <- as.numeric(as.character(y[,3]))
 
@@ -63,7 +62,7 @@ mega_clean <- function(y){
 
   #  Copies the dataframe and assigns itself as the new dataframe to be cleaned
   #  We need this because the for loop will not "remember" the previous
-  #  cycles if we do not set dataframe to be changed to be the same thing
+  #  cycles if we do not set a new dataframe to dump all the changes to
 
   for(i in 1:54) {
 
@@ -95,10 +94,13 @@ mega_clean <- function(y){
     clean(for_departments[i])
 
     #  The kicker of the for loop. This goes through every character in
-    #  for_departments and presumably cleans all entries in the dataframe
-    #  such that df3 shows only the department names
+    #  for_departments and cleans all entries in the dataframe
+    #  such that mega_clean_df shows only the department names
   }
 
   mega_clean_df <<- data.frame(name=y1[,1], department= var_cleaning, year= y1[,3])
+  
+  #  The finished product is  dumped into a new dataframe uploaded onto the global
+  #  environment for the user. The user can then rename this whatever he desires
 
 }

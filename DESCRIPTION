@@ -12,6 +12,10 @@ Description: This package estimates the averge age of Williams Faculty using
     Williams datasets from other years.
 Imports:
     dplyr
-License: What license is it under?
+License: GPL-3
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr

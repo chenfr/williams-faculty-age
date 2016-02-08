@@ -4,10 +4,12 @@
 \alias{mean_faculty}
 \title{Estimate average age of Williams Faculty}
 \usage{
-mean_faculty()
+mean_faculty(x)
 }
 \arguments{
-\item{x}{The desired year of Williams Faculty, (2011, 2012, 2013, or 2014)}
+\item{x}{The desired year of Williams Faculty. Acceptable arguments are
+'clean_df2011', 'clean_df2012', 'clean_df2013', 'clean_df' for data from years
+2011-2014. 'clean_df' is default}
 }
 \value{
 The average age of Williams faculty. Default is 2014.

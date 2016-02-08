@@ -4,13 +4,17 @@
 \alias{hist_department}
 \title{Display Histogram of the Ages of Desired Department}
 \usage{
-hist_department(x, y)
+hist_department(x, y, z)
 }
 \arguments{
 \item{x}{A character string of desired department. See for_department for a complete
 list of departments to use as parameters.}
 
-\item{y}{A numerical value of the number of breaks desired in the histogram. Recommended
+\item{y}{The data frame to be used for the function. Available years to be used are
+2011, 2012, 2013, 2014. Acceptable parameters are clean_df2011, clean_df2012,
+clean_df2013, clean_df}
+
+\item{z}{A numerical value of the number of breaks desired in the histogram. Recommended
 amount of breaks: 5-20. Default is 15.}
 }
 \value{
@@ -18,7 +22,7 @@ The average age of Williams faculty for the specified department.
 }
 \description{
 The "hist_department" function produces a histogram of the ages of all Williams
-faculty in a particular department and includes an abline of the average age of all
-the Williams faculty in the department. Requires the dplyr package for use.
+faculty in a particular department and year and includes an abline of the average
+age of all the Williams faculty in the department. Requires the dplyr package for use.
 }
 

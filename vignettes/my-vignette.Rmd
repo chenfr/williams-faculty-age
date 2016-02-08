@@ -1,0 +1,318 @@
+---
+title: "williamsfacultyage Vignette"
+author: "Frankie Chen '18"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{williamsfacultyage Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+**williamsfacultyage** is a package that provides tools to analyze the ages of Williams College faculty over various years. This vignette's purpose is threefold: to explain how to use the package's features, to discuss how the package was made, and to answer the question: "What is the average age of Williams College faculty?" The vignette is formatted to discuss the use and my methodology of writing the functions first and then discuss my findings second.
+
+## Abstract
+
+**williamsfacultyage** includes five functions.  
+
+* mean_faculty
+    + Estimates the mean age of all Williams faculty in a specific year.
+* mean_department
+    + Estimates the mean age of Williams faculty in a particular department in a specific year.
+* hist_department
+    + Produces a histogram of the ages of Williams faculty in a particular department in a specific year
+* summary_department
+    + Gives a statistical summary of the faculty age in a particular department in a specific year
+* mega_clean  
+    + Cleans faculty age data sets pulled from the web
+
+Additionally, **williamsfacultyage** package also includes two versions of the Williams faculty data for every year from 2011-2014 on which all the functions rely. One version is an "unclean" version and the other is a cleaned version after using the *mega_clean* function.     
+Using these tools, I've estimated that the average age of Williams faculty in 2014 is 48.82 years with a standard deviation of 12.23 years. The oldest professors were Donald deB. Beaver, a history of science professor, and  Charles Dew, a history professor, estimated to be 78 years old in 2014. The youngest is estimated to be 25 in 2014, a visting Art lecturer, Sarah Mirseyedi. 
+
+## The Data  
+For this package, I used the Williams Archived Course Catalogs found [here](http://web.williams.edu/admin/registrar/catalog/archive.html) as the data for my functions. Every course catalog is available as a pdf and contains a list of the current Williams faculty at the time near the bottom of the document. The list of faculty members includes every faculty member's name, position in the College, and year at which she obtained her various degrees. In particular, every faculty member is listed with the year at which she obtained her Bachelor's degree or equivalent.  
+  
+For this package, I critically assume that all the professors obtained their Bachelor's at 22 and accordingly adjust my functions to calculate their age. Obviously this might not be true, but I feel that this is a safe assumption given the number of professors in the data and the fact that the majority obtained their degree from American institutions-- institutions that probably have the standard 4-year Bachelor degree tracks.
+I read in the data first by copy and pasting this list from pdf file onto a text file, saving it onto my computer, and then reading it into R as a csv file. I used the following code to read in the 2014 data:
+```
+read.csv("C:/Users/Frankie/Desktop/facultyData2013.txt", header=FALSE, fill=TRUE, na.string="NA")
+```
+*header* is set to false, because there are no title columns. *fill* is set to true, because not all faculty listed have the same number of degrees or information. Therefore, some rows are longer than others. To keep R from rejecting this data as a dataframe, *fill=TRUE* autofills shorter rows and *na.string="NA"* fills these empty cells with "NA"'s. I've read the data from 2011-2014 in this way and named them "facultyData" (2014 data), "facultyData2013", "facultyData2012", and "facultyData2011" saved in the /data folder in the R package.  
+
+```{r}
+library(williamsfacultyage)
+head(facultyData)
+```
+Notice that the first three variables are the only variables that matter. Furthermore, the second column contains information about the professor's title. This is helpful for sorting professors by department, because each title contains the department that they're in, but the problem is that there are many variations of a professor title, making it difficult for R to sort professors into the same department.
+In the next section, I will talk about how I clean the data using the function *mega_clean*.  
+
+## Functions
+
+### *mega_clean*
+
+I begin with this function, because the most difficult part of creating this package was cleaning the data after reading it in. After working for hours on figuring out how to clean the data, I decided to write this function that automatically cleans the data from the archive after reading them into a local file.  
+Line-by-line comments are available for *mega_clean* in R file for the function, but I have excluded them in this vignette for length's sake.
+```
+mega_clean <- function(y){
+
+  for_departments <- c("Africana Studies", "American Studies", "Anthropology",
+                       "Arabic", "Art History", "Art Studio", "Asian American Studies",
+                       "Asian Studies", "Astronomy", "Astrophysics", "Biochemistry", "Biology",
+                       "Chemistry", "Chinese", "Classics", "Cognitive Science",
+                       "Comparative Literature", "Computer Science", "Dance", "Economics", "English",
+                       "Enironmental Policy", "Environmental Science", "Environmental Studies",
+                       "French", "Geosciences", "German", "Global Studies", "History of Science",
+                       "Italian", "Japanese", "Latina/o Studies", "Maritime Studies",
+                       "Mathematics", "Music", "Neuroscience", "Performance Studies",
+                       "Philosophy", "Physical Education", "Physics", "Political Economy",
+                       "Political Science", "Psychology", "Public Health", "Religion",
+                       "Romance Languages", "Russian", "Sociology", "Spanish", "Statistics",
+                       "Theatre", "Women's, Gender, & Sexuality Studies", "History", "Art")
+
+  y[,3] <- as.numeric(as.character(y[,3]))
+  y1 <- y[complete.cases(y[,3]), ]
+  var_cleaning <<- y1[,2]
+  
+  for(i in 1:54) {
+    clean <- function(x) {
+      deparse(substitute(x))
+      var <- paste(".*", x, ".*", sep="")
+      var_cleaning <<- gsub(var, x, var_cleaning)
+    }
+    clean(for_departments[i])
+  }
+  
+  mega_clean_df <<- data.frame(name=y1[,1], department= var_cleaning, year= y1[,3])
+}
+```
+*mega_clean* cleans the data read in from the Williams archive by deleting all columns except for the name, title, and year of BA of the faculty. However, and more importantly, *mega_clean* goes through the title column in the dataframe and cleans every row such that only the department name remains. The function works by going through each department one by one and replacing all professor titles that contain the department name with just the department name.     
+For example, the second column might show "Professor of Philosophy", but we only desire the character "Philosophy". Because "Philosophy" is a department specifed in for_departments, mega_clean will delete everything except "Philosophy" in that particular title cell. The function iterates this for every cell for "Philosophy" and then repeats the process for the rest fo the departments.  
+The result of this function is dumped into a new dataframe called mega_clean_df that serves as the "cleaned" version of the data.   
+
+For example, if we were to clean "facultData" from the above section, we would do the following:
+
+```{r}
+library(williamsfacultyage)
+mega_clean(facultyData)
+head(mega_clean_df)
+```
+
+*mega_clean* requires dataframes as arguments which is part of the reason why facultyData has been included in /data. Other dataframes can be cleaned using this function aside from the preloaded dataframes, but the function requires that the data have the professor titles in the second row.  
+It is because of this drawback that I could only include 4 years worth of data. For, the formatting of the faculty lists in the archived course catalogs changed from 2010 and earlier such that the faculty and their BA information is split onto two lines. This has the unfortunate effect of shifting the Professor's name and the year in which they got their Bachelor's onto two different rows in the dataframe.
+Due to time constraints, I was unable to change my function to accomodate for this difference in formatting. The data that I was able to clean are renamed to clean_df, clean_df2013, clean_df2012, and clean_df2011 and used for the rest of the functions.
+If you take a look at my data you will also notice that I've added 2 years from all of the BA degrees in the 2014 data set, 3 years in the 2013, 4 years in the 2012, and 5 years in the 2011 data sets. This is to compensate for the difference in years between the current year and the year recorded. For example, in 2014, the average age was estimated to be about 50.8 years. However, this does not accurately reflect the average age *in 2014*, because my mean function uniformly calculates the average age using 2016 as the current year not 2014. Therefore, in order to compensate, I add the difference in years between the current year and the year in question.  
+
+
+### *mean_faculty* 
+```
+mean_faculty <- function(x){
+
+  if(missing(x)){
+    x <- clean_df
+  }
+
+  #  If no argument is entered, data from 2014 is defaulted
+
+  avg_yearBA <- mean(x[,3],na.rm=TRUE)
+
+  #  Vector of the years at which faculty obtained their BA's
+
+  2038 - mean(avg_yearBA,na.rm=TRUE)
+
+  #  2038 = 2016 + 22. We add the current year, 2016, plus the assumed age at
+  #  which a BA's is obtained, 22. Because the difference between the current
+  #  year and in the year in question has already been compensated in the preloaded
+  #  dataframe, this calculation will work across all years.
+  #  The mean function takes the mean of the years at which faculty obtained
+  #  their BA's and then subtracts the result from 2038 to obtain an estimate
+  #  of the avg age
+}
+
+```
+*mean_faculty* calculates the average age of Williams faculty in a specific year. In order to use the function, the dataframe of desired year must be entered. If no argument is given, 2014 is defaulted. These dataframes are included in the package ahead of time in the /data file. The names of the dataframes are all called "clean_df" with the desired year attached. An example:
+
+```{r}
+library(williamsfacultyage)
+mean_faculty(clean_df2011)
+```
+This function relies on the cleaned dataframes preloaded in /data, but the user may include data from other years or even from other schools as long as the dataframe is formatted with the years of Bachelor degrees in the third column. This calculation of the age of faculty from the BA year is the foundation of the rest of the functions. Indeed, some of the other functions may do *mean_faculty*'s job and more, but the function serves as the quickest and easiest way of answer the titular question.  
+
+### mean_department  
+```
+mean_department <- function(x,y){
+
+  if(missing(y)){
+    y <- clean_df
+  }
+
+  #  If user forgets to enter y value, the 2014 data set is defaulted (clean_df)
+  
+  deparse(substitute(x))
+  
+  #  Allows the function to take strings as arguments
+  
+  var <- filter(y, department == x)
+  
+  #  Filters df by department (x) and puts all faculty in the particular
+  #  department in the dataframe var
+  
+  var %>% group_by(department) %>%
+    
+    #  Groups the department column of var
+    
+    summarise(avg_age = 2038- mean(year, na.rm=TRUE))
+  
+  #  Estimates the average age of Chemistry faculty in the same way mean_faculty
+  #  calculates the age
+  
+}
+```
+*mean_department* function utilizes the package dplyr to group the professors by department and year. Therefore, dplyr must be loaded beforehand. This added feature allows the user to explore unique data of over 50 departments over 4 years. A list of all the departments can be seen in "for_department".  
+The tricky part of writing this code was forcing the function to read a string as the argument. After figuring out that "deparse()" solves this problem, it was easy to implement dplyr's *filter*, *group_by*, and *summarise* functions to sort the nicely cleaned data by department.   
+The default year in mean_department is the 2014 data set. The department, however, must be entered as a character. For example, to find the average age of the Economics department in 2011:
+```{r, message=FALSE, warning=FALSE}
+library(williamsfacultyage)
+library(dplyr)
+mean_department("Economics", clean_df2011)
+```
+
+###hist_department
+```
+hist_department <- function(x,y,z){
+
+  #  For this function, x will be set as the department parameter, y as the data frame
+  #  parameter and z as the parameter for the number of breaks in the histogram
+
+  if(missing(z)){
+    z <- 15
+  }
+
+  #  In case user forgets to put in a custom breaks number, function defaults
+  #  breaks (z) to 15
+
+  if(missing(y)){
+    y <- clean_df
+  }
+
+  #  If user forgets to enter y value, the 2014 data set is defaulted (clean_df)
+
+
+  if(missing(x)){
+    var <- 2038- y[,3]
+    y_name <- deparse(substitute(y))
+    title <- paste("Histogram of Faculty from", y_name, sep=" ")
+    hist(var,xlab="Age", main= title)
+  }
+  else{
+
+    #  Allows user to get a histogram of the entire year's faculty if no x paramter is
+    #  inputted.
+
+  deparse(substitute(x))
+
+  #  Allows the function to take strings as arguments for x
+
+  var <- filter(y, department == x)
+
+  #  Filters the dataframe by department (x) and puts all faculty in the particular
+  #  department in the new dataframe var
+
+  var1 <- 2038- var$year
+
+  #  Takes just the years of BA's awarded in var and converts them to
+  #  the faculty's age
+
+
+  title <- paste("Histogram of the Ages of", x, "Faculty", sep=" ")
+
+  #  Concatanates the Department name string (x) with "Ages of" and "Faculty"
+  #  to produce the title for the histogram
+
+  hist(var1, breaks= z, xlab="Age", main= title)
+
+  #  Puts everything together in a histogram
+
+  abline(v= mean(var1, na.rm=TRUE), col= "blue", lwd=2)
+
+  #  Puts the mean age of the department's faculty as an abline on the histogram
+}
+}
+```  
+*hist_department* produces a histogram of the ages of Williams faculty sorted by department and year. The function takes the department and the respective dataframe for the desired year as the first two arguments similar to* mean_department*. Additionally, there is a third feature that allows the user to adjust the number of breaks in the histogram to improve visualization. Finally, the user can also leave the x parameter empty to display histograms of the entire year.    
+For example, to display the histogram of the History department in 2013:
+```{r}
+library(dplyr)
+library(williamsfacultyage)
+hist_department("History", clean_df2013, 20)
+```  
+   
+   Importantly, both the data and the breaks variables can be left empty, but a department name is required. Furthermore, if the data section is left empty (defaulting to the 2014 data set), but the number of breaks is to change, the user must write "z= (number of breaks desired)".    
+The code for *hist_department* essentially wrote itself after figuring out how to read strings as arguments and implementing dplyr's functions in writing *mean_department*'s code. The trickiest part of writing this function was pasting in the title of the desired department into the histogram that automatically changed as the user typed in a different department.  
+
+###summary_department
+```
+summary_department <- function(x,y){
+  
+  if(missing(y)){
+    y <- clean_df
+  }
+  
+  #  If user forgets to enter y value, the 2014 data set is defaulted (clean_df)
+  
+  deparse(substitute(x))
+  
+  #  Allows the function to take strings as arguments
+  
+  if(missing(x)){
+    
+    var <- y
+    
+    #  Allows user to find the summary of all Williams Faculty regardless of department
+    #  if nothing is put
+    
+  } else{
+    
+    var <- filter(y, department == x)
+    
+  }
+  
+  #  Otherwise, filters df by department (x) and puts all faculty in the particular
+  #  department in the dataframe var
+  
+  summary <- summary(2038- var[,3])
+  
+  #  Summarizes the ages of the faculty in the specified year and department
+  #  Note that this does NOT give the standard deviation
+  
+  sd <- sd(var[,3])
+  
+  #  Takes standard deviation of the ages of faculty in specified year and department
+  
+  setClass("Summary", representation(Spread = "table", Sd = "numeric"))
+  
+  #  Sets a S4 class "Summary" so we can return both summary and sd. This is necessary
+  #  because R will only return one value (either sd() of ages or summary() of ages)
+  
+  summary_var <- new("Summary", Spread= summary, Sd = sd)
+  
+  #  Adds a new object in S4 class "Summary" with the summary and sd attributes
+  
+  summary_var
+  
+  #  Returns both summary and sd
+  
+}
+```
+*summary_department* is the go-to function for finding all the information you can for a specific department in a specific year. The function returns the mean, median, quartiles, and standard deviation of the ages of faculty in the desired department or year.   
+The structure of this code is similar to the previous functions', but importantly *summary_department* makes use of S4 classes. Although a small application, I found it very useful to set up an S4 class in *summary_department* that stored the results of summary() and sd() in slots. This solved my problem of only being able to return one value--- either summary() or sd() but never both. By setting up a class, I simply just had to call the object and both results were returned.  
+To use this function, enter the desired department and year as arguments as usual. Additionally, *summary_department* also allows the user to summarize the entire dataset regardless of department for a specific year by leaving the department feature blank. Importantly, however, the year must be specified as "y=(desired dataframe)".  
+
+#Findings
+
+As stated in the abstract, I found that the mean age of the faculty in 2014 to be 48.82 years old. However, to get a better sense of the average age of faculty, I generated histograms of the faculty ages over the past 4 years.
+
+```{r}
+library(dplyr)
+library(williamsfacultyage)
+
+```

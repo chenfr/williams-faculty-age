@@ -2,19 +2,22 @@
 % Please edit documentation in R/mean_department.R
 \name{mean_department}
 \alias{mean_department}
-\title{Estimate average age by department}
+\title{Estimate average age by department and year}
 \usage{
-mean_department(x)
+mean_department(x, y)
 }
 \arguments{
 \item{x}{Character string of desired department. See "for_department" for a complete
 list of departments to use as parameters.}
+
+\item{y}{Data frame to be used. Data frames vary by year. Acceptable parameters include
+"clean_df2011", "clean_df2012", "clean_df2013", "clean_df" (years 2011-2014)}
 }
 \value{
-The average age of Williams faculty for the specified department.
+The average age of Williams faculty for the specified department and year.
 }
 \description{
 The "mean_department" function estimates the average age of Williams faculty sorted
-by department.
+by department and year. If no year is specified, 2014 is the defaulted.
 }
 
