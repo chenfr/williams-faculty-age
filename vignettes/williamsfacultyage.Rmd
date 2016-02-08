@@ -314,5 +314,29 @@ As stated in the abstract, I found that the mean age of the faculty in 2014 to b
 ```{r}
 library(dplyr)
 library(williamsfacultyage)
+hist_department(y=clean_df)
+hist_department(y=clean_df2013)
+hist_department(y=clean_df2012)
+hist_department(y=clean_df2011)
+```
+As expected, the distribution of the faculty ages take on roughly the same shape over the past four years with a center around 50 and roughly bimodal distribution for years 2011, 2013, and 2014. However, the histogram for year 2012 takes on a strange shape, and looks different than the rest. Obviously, histogram 2012 has a different break number, but seeing as how the code for all four were nearly identical, there must be something curious about the data. Examining the summaries for all four years:
+```
+summary_department(y=clean_df2012)
+
+An object of class "Summary"
+Slot "Spread":
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.00   40.00   49.00   49.58   59.00   91.00 
+
+Slot "Sd":
+[1] 11.81221
 
 ```
+   
+Surprisingly, the minimum age for faculty was 12 in 2012. This could not be correct. Indeed, after identifying this outlier, I found that the youngest faculty in 2012 was Julie Joosten, an English professor who apparently got her Bacherlor's in 2022. The original pdf file where all the data was read also shows this typo. Aside from this outlier, years 2011-2013 showed another outlier-- a professor in his nineties. Knowing that this outlier disappeared in year 2014, the professor either retired or my data set missed him.  
+After looking Professor Henry Bruton on google, I found that he had passed away in 2013, thus affirming my suspicion.  
+With regards to any trends over the past 4 years, I can not say anything definitively. The average age hovered around 48-49 changing by no more than a year.  
+
+##Conclusion
+Overall, I would conclude that the average age of Williams Faculty is about 49, and that the distribution of faculty age over the years has changed very little. This all makes sense because of the cycle of new, younger professors getting hired and the older, tenured ones retiring.  
+My package could have been improved if I had figured out how to have R ignore line breaks in the 2010 and earlier data sets so I could include more departments. Furthermore, my cleaning function, although working, drops a significant amount of data. I lost upwards 50 points of data after data scrubbing. By fine tuning my cleaning function, I could probably cut this missed data down significantly. Finally, if I had the time I would also have loved to figure out a way to calculate professor's age based on their position on the tenure track. 

@@ -99,7 +99,7 @@ mega_clean <- function(y){
   }
 
   mega_clean_df <<- data.frame(name=y1[,1], department= var_cleaning, year= y1[,3])
-  
+
   #  The finished product is  dumped into a new dataframe uploaded onto the global
   #  environment for the user. The user can then rename this whatever he desires
 

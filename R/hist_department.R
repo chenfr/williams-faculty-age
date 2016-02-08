@@ -5,7 +5,7 @@
 #' age of all the Williams faculty in the department. Requires the dplyr package for use.
 #' @param x A character string of desired department. See for_department for a complete
 #' list of departments to use as parameters. If no x parameter is entered, be sure to enter
-#' "y=clean_df" or anothe specified year.
+#' "y=clean_df" or another specified year
 #' @param y The data frame to be used for the function. Available years to be used are
 #' 2011, 2012, 2013, 2014. Acceptable parameters are clean_df2011, clean_df2012,
 #' clean_df2013, clean_df
